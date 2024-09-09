@@ -1,22 +1,24 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import Logo from "../../assets/Logo.jpeg"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { Article } from "./Article"
-import { Search } from "./Search"
+import SearchIcon from '@mui/icons-material/Search'
 
 
 export const Layout = ({ children }) => {
-    const [searchResults, setSearchResults] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
-
     return (
         <div className="flex flex-col min-h-screen bg-[#001a33] text-[#83fdff]">
-            <header className="bg-[#1d598a] text-[#83fdff] py-4 px-6 shadow">
+            <header className="bg-gradient-to-r from-[#1d598a] to-[#2980b9] text-[#83fdff] py-4 px-6 shadow">
                 <div className="container mx-auto flex items-center justify-between">
-                    <Link to="/" className="text-2xl font-bold">ACONEWS</Link>
-                    <nav className=" items-center space-x-6">
-                        <Search setSearchResults={setSearchResults} setLoading={setLoading} setError={setError} />
+                    <Link to="/" className="flex items-center space-x-2 text-2xl font-bold">
+                        <img src={Logo} alt="Logo" className="h-10 w-10 rounded-full"/>
+                        <span className="text-3xl tracking-wide">ACONEWS</span>
+                    </Link>
+                    <nav className="flex items-center">
+                        <Link to="/search" className="flex items-center space-x-2 px-4 py-2 rounded-full bg-[#003366] hover:bg-[#004080] transition-colors duration-200">
+                        <SearchIcon className="text-[#83fdff]" />
+                        <span className="text-[#83fdff] font-medium">Search</span>
+                        </Link>
                     </nav>
                 </div>
             </header>
@@ -27,18 +29,7 @@ export const Layout = ({ children }) => {
                         <Dropdown label="Category" items={["General", "World", "Nation", "Business", "Technology", "Entertainment", "Sports", "Science", "Health"]} />
                     </div>
                 </div>
-                {searchResults.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {loading && <p>Loading search results...</p>}
-                        {error && <p>{error}</p>}
-                        {!loading && !error && searchResults.map((article, index) => (
-                            <Article key={index} title={article.title} description={article.description} image={article.image} url={article.url} />
-                        ))}
-                        {!loading && !error && searchResults.length === 0 && <p>No articles found.</p>}
-                    </div>
-                ) : (
-                    children
-                )}
+                {children}
             </div>
         </div>
     )

@@ -4,7 +4,7 @@ import { useFetchData } from '../hooks/fetch-hook'
 
 export const CategoryPage = () => {
   const { category } = useParams()
-  const API_URL = `https://gnews.io/api/v4/top-headlines?token=${process.env.REACT_APP_API_KEY}&lang=en&country=in&category=${category}`
+  const API_URL = `https://gnews.io/api/v4/top-headlines?token=${process.env.REACT_APP_API_KEY}&category=${category}&lang=en&country=in`
   const { data: articles, loading, error } = useFetchData(API_URL)
   return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

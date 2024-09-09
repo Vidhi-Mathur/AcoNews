@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import EastIcon from '@mui/icons-material/East';
 
 export const Article = ({ title, description, image, url }) => {
@@ -8,9 +7,9 @@ export const Article = ({ title, description, image, url }) => {
             <div className="p-4">
                 <h3 className="text-lg font-bold mb-2">{title}</h3>
                 <p className="text-[#99ccff] mb-4">{description}</p>
-                <Link to={url} className="inline-flex items-center text-[#3399ff] hover:text-[#66b3ff]">Read More
+                <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-[#3399ff] hover:text-[#66b3ff]">Read More
                     <EastIcon className="w-4 h-4 ml-2" />
-                </Link>
+                </a>
             </div>
         </div>
     )
