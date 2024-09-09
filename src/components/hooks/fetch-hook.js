@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react'
 //Free tier allows 1 req/ sec
 export const useFetchData = (url, delay = 1000) => {
   const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   useEffect(() => {
+    if(!url) return
     const debounceFetch = setTimeout(() => {
         const fetchData = async () => {
             setLoading(true)
