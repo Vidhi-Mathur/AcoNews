@@ -8,7 +8,7 @@ export const SearchPage = () => {
     const [searchResults, setSearchResults] = useState([])
 
     const { data, loading, error } = useFetchData(
-        searchQuery ? `https://gnews.io/api/v4/search?q=${searchQuery}&token=${process.env.REACT_APP_API_KEY}&lang=en&country=in` : null
+        searchQuery ? `https://gnews.io/api/v4/search?q=${searchQuery}&token=${process.env.REACT_APP_API_KEY}&lang=en&country=in` : null, 2000
     )
 
     useEffect(() => {
@@ -31,14 +31,16 @@ export const SearchPage = () => {
                     <SearchIcon />
                 </button>
             </form>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {loading && <p>Loading...</p>}
-                {!loading && error && <p>{error}</p>}
-                {!loading && !error && searchResults && searchResults.length === 0 && <p>No articles found.</p>}
-                {!loading && !error && searchResults && searchResults.map((article, index) => (
-                  <Article key={index} title={article.title} description={article.description} image={article.image} url={article.url} />
-                ))}
-            </div>
+            {loading  && <p>Loading...</p>}
+            {!loading && error && <p>{error}</p>}
+            {!loading && !error && searchResults && searchResults.length === 0 && <p>No articles found.</p>}
+            {!loading && !error && searchResults && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-8">
+                    {searchResults.map((article, index) => (
+                      <Article key={index} title={article.title} description={article.description} image={article.image} url={article.url} />
+                    ))}
+                </div>
+            )}
         </div>
     )
 }
